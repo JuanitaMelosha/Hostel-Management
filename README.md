@@ -1,8 +1,6 @@
 # Hostel Management Application
 
-## This project is a Hostel Management Application developed using Zoho Creator.
-
-- It simplifies and automates the process of managing hostel rooms, student details, and bookings.
+This project is a Hostel Management Application developed using Zoho Creator.It simplifies and automates the process of managing hostel rooms, student details, and bookings.
 
 ## Key features include:
 
