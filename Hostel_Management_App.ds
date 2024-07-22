@@ -1,0 +1,1085 @@
+/*
+ * Author       : meloshajuanita
+ * Generated on : 30-Sep-2021 21:37:09
+ * Version      : 1.0
+ */
+ application "Hostel Management App"
+ {
+ 	date format = "dd-MMM-yyyy"
+ 	time zone = "Asia/Kolkata"
+ 	time format = "24-hr"
+	section Candidate_Details
+	{
+		displayname= "Candidate Details"
+		icon = "users-2-contacts-44"
+		form Candidate_Details
+		{
+			displayname = "Candidate Details"
+			success message = "Candidate Detail Added Successfully"
+			field alignment = left
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have Name
+			(
+    			type = name
+     			prefix
+     			(
+	     			 type = prefix
+	     			 displayname ="Prefix"
+	     			 visibility = false
+	     			 value = {"Mr.","Mrs.","Ms."}
+     			) 
+     			first_name
+     			(
+	     			 type = first_name
+	     			 displayname ="First Name"
+     			) 
+     			last_name
+     			(
+	     			 type = last_name
+	     			 displayname ="Last Name"
+     			) 
+     			suffix
+     			(
+	     			 type = suffix
+	     			 displayname ="Suffix"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			must have Gender
+			(
+				type = radiobuttons
+				maxchar = 100
+				values = {"Male", "Female"}
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Contact_Number
+			(
+    			type = phonenumber
+				displayname = "Contact Number"
+    			defaultcountry="in"
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			must have unique Email
+			(
+    			type = email
+				maxchar = 80
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			must have Date_of_Birth
+			(
+    			type = date
+				displayname = "Date of Birth"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			must have Address
+			(
+    			type = address
+     			capture_coordinates = true
+     			adjust_using_map = false
+     			address_line_1
+     			(
+	     			  type = address_line_1
+	     			  displayname = "Address Line 1"
+     			) 
+     			address_line_2
+     			(
+	     			  type = address_line_2
+	     			  displayname = "Address Line 2"
+     			) 
+     			district_city
+     			(
+	     			  type = district_city
+	     			  displayname = "City"
+     			) 
+     			state_province
+     			(
+	     			  type = state_province
+	     			  displayname = "State"
+     			) 
+     			postal_Code
+     			(
+	     			  type = postal_Code
+	     			  displayname = "Postal Code"
+     			) 
+     			country
+     			(
+	     			  type = country
+	     			  displayname = "Country"
+     			) 
+     			latitude
+     			(
+	     			  type = latitude
+	     			  displayname = "latitude"
+	     			 visibility = false
+     			) 
+     			longitude
+     			(
+	     			  type = longitude
+	     			  displayname = "longitude"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			must have Aadhar_Number
+			(
+				type = number
+				displayname = "Aadhar Number"
+				maxchar = 12
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			must have Emergency_Contact
+			(
+    			type = phonenumber
+				displayname = "Emergency Contact"
+    			defaultcountry="in"
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+	
+			customize
+			(
+				icon = "arrows-1-bold-direction"
+			)
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		default list All_Candidate_Details
+		{
+			displayName = "All Candidate Details"
+			show all rows from Candidate_Details    
+			(
+				Name 
+	 			(
+	      			displayformat = [first_name+""+prefix+""+last_name+""+suffix]
+	 			)
+				Email
+				Address 
+	 			(
+	      			displayformat = [address_line_1+""+address_line_2+""+district_city+""+state_province+""+postal_Code+""+country]
+	      			enable = Link_to_Map,Show_As_Text
+	 			)
+				Contact_Number as "Contact Number"
+				(
+					displayformat = plainnumber 
+					linktodial = enable
+				)
+				Emergency_Contact as "Emergency Contact"
+				(
+					displayformat = plainnumber 
+					linktodial = enable
+				)
+				Gender
+				Date_of_Birth as "Date of Birth"
+				Aadhar_Number as "Aadhar Number"
+			)
+			options
+			(
+				icon = "users-2-a-time"
+	 		)
+			quickview
+			(
+				layout
+				(
+		 			type = -1
+					datablock1
+					(
+			 			layout type = -1
+		     			title = "Overview"
+						fields
+						(
+							Name
+							Email
+							Address
+							Contact_Number as "Contact Number"
+							Emergency_Contact as "Emergency Contact"
+							Gender
+							Date_of_Birth as "Date of Birth"
+						)
+					)
+				)
+
+				menu
+    			(
+    	 			header
+    	 			(
+    		 			Edit 
+    		 			Duplicate 
+    		 			Delete 
+    	 			)
+							record
+							(
+								Edit   	   
+								Duplicate   	   
+								Delete   	   
+    						)
+    			)
+    			action
+    			(
+							on click
+							(
+								View Record   	   
+    						)
+							on right click
+							(
+								Edit   	   
+								Delete   	   
+								Duplicate   	   
+								View Record   	   
+    						)
+     			)
+			)
+			detailview
+			(
+				layout
+				(
+		 			type = 1
+					datablock1
+					(
+			 			layout type = -2
+		     			title = "Overview"
+						fields
+						(
+							Name
+							Email
+							Address
+							Contact_Number as "Contact Number"
+							Emergency_Contact as "Emergency Contact"
+							Gender
+							Date_of_Birth as "Date of Birth"
+							Aadhar_Number as "Aadhar Number"
+						)
+					)
+				)
+
+				menu
+    			(
+    	 			header
+    	 			(
+    		 			Edit 
+    		 			Duplicate 
+    		 			Delete 
+    	 			)
+    			)
+			)
+		}
+	}
+	section Room_Type
+	{
+		displayname= "Room Type"
+		icon = "nature-dog-house"
+		form Room_Form
+		{
+			displayname = "Room Form"
+			success message = "Data Added Successfully!"
+			field alignment = left
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have Room_Type
+			(
+				type = picklist
+				displayname = "Room Type"
+				maxchar = 100
+				values = {"Individual", "Twin", "Apartment"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			must have Room_Facility
+			(
+				type = radiobuttons
+				displayname = "Room Facility"
+				maxchar = 100
+				values = {"Fully Air Condition", "Non Air Condition"}
+				layout = 2
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Rent_per_month
+			(
+				displayname = "Rent per month"
+				type = INR
+				format = commadotindian
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Bathroom_Facility
+			(
+				type = radiobuttons
+				displayname = "Bathroom Facility"
+				maxchar = 100
+				values = {"Attached ", "Non-attached"}
+				layout = 2
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Toilet
+			(
+				type = radiobuttons
+				maxchar = 100
+				values = {"Indian", "Western"}
+				layout = 2
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Requirements
+			(
+				type = checkboxes
+				values = {"Wifi", "Laundry", "Room Service", "Geyser", "Television"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Food
+			(
+				type = radiobuttons
+				maxchar = 100
+				values = {"Veg", "Non-Veg"}
+				layout = 2
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Food_Fees
+			(
+				displayname = "Food Fees"
+				type = INR
+				format = commadotindian
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Total_Amount
+			(
+				displayname = "Total Amount"
+				type = INR
+				format = commadotindian
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			customize
+			(
+				icon = "files-edit"
+			)
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		default list Room_Type_Report
+		{
+			displayName = "Room Type Report"
+			show all rows from Room_Form    
+			(
+				Room_Type as "Room Type"
+				Room_Facility as "Room Facility"
+				Requirements
+				Bathroom_Facility as "Bathroom Facility"
+				Toilet
+				Rent_per_month as "Rent per month"
+				Food
+				Food_Fees as "Food Fees"
+				Total_Amount as "Total Amount"
+			)
+			options
+			(
+				icon = "business-laptop-71"
+	 		)
+			quickview
+			(
+				layout
+				(
+		 			type = -1
+					datablock1
+					(
+			 			layout type = -1
+		     			title = "Overview"
+						fields
+						(
+							Room_Type as "Room Type"
+							Room_Facility as "Room Facility"
+							Requirements
+							Bathroom_Facility as "Bathroom Facility"
+							Toilet
+							Rent_per_month as "Rent per month"
+						)
+					)
+				)
+
+				menu
+    			(
+    	 			header
+    	 			(
+    		 			Edit 
+    		 			Duplicate 
+    		 			Delete 
+    	 			)
+							record
+							(
+								Edit   	   
+								Duplicate   	   
+								Delete   	   
+    						)
+    			)
+    			action
+    			(
+							on click
+							(
+								View Record   	   
+    						)
+							on right click
+							(
+								Edit   	   
+								Delete   	   
+								Duplicate   	   
+								View Record   	   
+    						)
+     			)
+			)
+			detailview
+			(
+				layout
+				(
+		 			type = 1
+					datablock1
+					(
+			 			layout type = -2
+		     			title = "Overview"
+						fields
+						(
+							Room_Type as "Room Type"
+							Room_Facility as "Room Facility"
+							Requirements
+							Bathroom_Facility as "Bathroom Facility"
+							Toilet
+							Rent_per_month as "Rent per month"
+							Food
+							Food_Fees as "Food Fees"
+							Total_Amount as "Total Amount"
+						)
+					)
+				)
+
+				menu
+    			(
+    	 			header
+    	 			(
+    		 			Edit 
+    		 			Duplicate 
+    		 			Delete 
+    	 			)
+    			)
+			)
+		}
+	}
+	section Allotment_Form
+	{
+		displayname= "Allotment Form"
+		icon = "design-pen-tool"
+		form Allotment_Form
+		{
+			displayname = "Allotment Form"
+			success message = "Data Added Successfully!"
+			field alignment = left
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have Name
+			(
+    			type = name
+     			prefix
+     			(
+	     			 type = prefix
+	     			 displayname ="Prefix"
+	     			 visibility = false
+	     			 value = {"Mr.","Mrs.","Ms."}
+     			) 
+     			first_name
+     			(
+	     			 type = first_name
+	     			 displayname ="First Name"
+     			) 
+     			last_name
+     			(
+	     			 type = last_name
+	     			 displayname ="Last Name"
+     			) 
+     			suffix
+     			(
+	     			 type = suffix
+	     			 displayname ="Suffix"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			must have Contact_Number
+			(
+    			type = phonenumber
+				displayname = "Contact Number"
+    			defaultcountry="in"
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			Email
+			(
+    			type = email
+				maxchar = 80
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			must have Date_of_Allotment
+			(
+    			type = date
+				displayname = "Date of Allotment"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Room_Form
+			(
+				type = picklist
+				displayname = "Room Form"
+				values  = Room_Form.ID
+    			displayformat = [Room_Type]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Room_Number
+			(
+				type = number
+				displayname = "Room Number"
+				maxchar = 3
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Rent_per_month
+			(
+				type = picklist
+				displayname = "Rent per month"
+				values  = Room_Form.ID
+    			displayformat = [Rent_per_month]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Food_Fees
+			(
+				type = picklist
+				displayname = "Food Fees"
+				values  = Room_Form.ID
+    			displayformat = [Food_Fees]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Total_Payable_Amount
+			(
+				displayname = "Total Payable Amount"
+				type = INR
+				format = commadotindian
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Status_of_Payment
+			(
+				type = radiobuttons
+				displayname = "Status of Payment"
+				maxchar = 100
+				values = {"Paid", "Not Paid"}
+				layout = 2
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			customize
+			(
+				icon = "design-pen-23"
+			)
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		default list Allotment_Form_Report
+		{
+			displayName = "Allotment Form Report"
+			show all rows from Allotment_Form    
+			(
+				Name 
+	 			(
+	      			displayformat = [first_name+""+prefix+""+last_name+""+suffix]
+	 			)
+				Contact_Number as "Contact Number"
+				(
+					displayformat = plainnumber 
+					linktodial = enable
+				)
+				Email
+				Date_of_Allotment as "Date of Allotment"
+				Room_Form as "Room Form"
+				Room_Number as "Room Number"
+				Rent_per_month as "Rent per month"
+				Food_Fees as "Food Fees"
+				Total_Payable_Amount as "Total Payable Amount"
+				Status_of_Payment as "Status of Payment"
+			)
+			options
+			(
+				icon = "business-laptop-71"
+	 		)
+			quickview
+			(
+				layout
+				(
+		 			type = -1
+					datablock1
+					(
+			 			layout type = -1
+		     			title = "Overview"
+						fields
+						(
+							Name
+							Contact_Number as "Contact Number"
+							Email
+							Date_of_Allotment as "Date of Allotment"
+							Room_Form as "Room Form"
+							Room_Number as "Room Number"
+							Rent_per_month as "Rent per month"
+						)
+					)
+				)
+
+				menu
+    			(
+    	 			header
+    	 			(
+    		 			Edit 
+    		 			Duplicate 
+    		 			Delete 
+    	 			)
+							record
+							(
+								Edit   	   
+								Duplicate   	   
+								Delete   	   
+    						)
+    			)
+    			action
+    			(
+							on click
+							(
+								View Record   	   
+    						)
+							on right click
+							(
+								Edit   	   
+								Delete   	   
+								Duplicate   	   
+								View Record   	   
+    						)
+     			)
+			)
+			detailview
+			(
+				layout
+				(
+		 			type = 1
+					datablock1
+					(
+			 			layout type = -2
+		     			title = "Overview"
+						fields
+						(
+							Name
+							Contact_Number as "Contact Number"
+							Email
+							Date_of_Allotment as "Date of Allotment"
+							Room_Form as "Room Form"
+							Room_Number as "Room Number"
+							Rent_per_month as "Rent per month"
+							Food_Fees as "Food Fees"
+							Total_Payable_Amount as "Total Payable Amount"
+							Status_of_Payment as "Status of Payment"
+						)
+					)
+				)
+
+				menu
+    			(
+    	 			header
+    	 			(
+    		 			Edit 
+    		 			Duplicate 
+    		 			Delete 
+    	 			)
+    			)
+			)
+		}
+	}
+
+
+
+
+		workflow
+		{
+		form
+		{
+			Food_Fees as "Food Fees"
+			{
+				type =  form
+				form = Room_Form
+				record event = on add or edit
+
+				on user input of Food
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											if(Food == "Veg")
+										{
+											input.Food_Fees = 2000;
+										}
+										else if(Food == "Non-Veg")
+										{
+											input.Food_Fees = 4000;
+										}
+						)
+					}
+				}
+
+			}
+			Room_Amount as "Room Amount"
+			{
+				type =  form
+				form = Room_Form
+				record event = on add or edit
+
+				on user input of Room_Type
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											if(Room_Type == "Individual" && Room_Facility == "Fully Air Condition")
+										{
+											input.Rent_per_month = 3000;
+										}
+										else if(Room_Type == "Individual" && Room_Facility == "Non Air Condition")
+										{
+											input.Rent_per_month = 2500;
+										}
+						)
+					}
+					actions 
+					{
+						custom deluge script
+						(
+											if(Room_Type == "Twin" && Room_Facility == "Fully Air Condition")
+										{
+											input.Rent_per_month = 6000;
+										}
+										if(Room_Type == "Twin" && Room_Facility == "Non Air Condition")
+										{
+											input.Rent_per_month = 5500;
+										}
+						)
+					}
+					actions 
+					{
+						custom deluge script
+						(
+											if(Room_Type == "Apartment" && Room_Facility == "Fully Air Condition")
+										{
+											input.Rent_per_month = 8000;
+										}
+										else if(Room_Type == "Apartment" && Room_Facility == "Non Air Condition")
+										{
+											input.Rent_per_month = 7500;
+										}
+						)
+					}
+				}
+
+			}
+			Total_Amount as "Total Amount"
+			{
+				type =  form
+				form = Room_Form
+				record event = on add or edit
+
+				on user input of Total_Amount
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											if(Rent_per_month == 3000 && Food_Fees == 2000)
+										{
+											input.Total_Amount = 5000;
+										}
+										else if(Rent_per_month == 3000 && Food_Fees == 4000)
+										{
+											input.Total_Amount = 7000;
+										}
+										if(Rent_per_month == 2500 && Food_Fees == 2000)
+										{
+											input.Total_Amount = 4500;
+										}
+										else if(Rent_per_month == 2500 && Food_Fees == 4000)
+										{
+											input.Total_Amount = 6500;
+										}
+										if(Rent_per_month == 6000 && Food_Fees == 2000)
+										{
+											input.Total_Amount = 8000;
+										}
+										else if(Rent_per_month == 6000 && Food_Fees == 4000)
+										{
+											input.Total_Amount = 10000;
+										}
+										if(Rent_per_month == 5500 && Food_Fees == 2000)
+										{
+											input.Total_Amount = 7500;
+										}
+										else if(Rent_per_month == 5500 && Food_Fees == 4000)
+										{
+											input.Total_Amount = 9500;
+										}
+										if(Rent_per_month == 8000 && Food_Fees == 2000)
+										{
+											input.Total_Amount = 10000;
+										}
+										else if(Rent_per_month == 8000 && Food_Fees == 4000)
+										{
+											input.Total_Amount = 12000;
+										}
+										if(Rent_per_month == 7500 && Food_Fees == 2000)
+										{
+											input.Total_Amount = 9500;
+										}
+										else if(Rent_per_month == 7500 && Food_Fees == 4000)
+										{
+											input.Total_Amount = 11500;
+										}
+										if(Rent_per_month == 7000 && Food_Fees == 2000)
+										{
+											input.Total_Amount = 9000;
+										}
+										else if(Rent_per_month == 7000 && Food_Fees == 4000)
+										{
+											input.Total_Amount = 11000;
+										}
+										if(Rent_per_month == 6500 && Food_Fees == 2000)
+										{
+											input.Total_Amount = 8500;
+										}
+										else if(Rent_per_month == 6500 && Food_Fees == 4000)
+										{
+											input.Total_Amount = 10500;
+										}
+						)
+					}
+				}
+
+			}
+		}
+
+
+
+
+
+	}
+	share_settings
+	{
+			"Read"
+			{
+				name = "Read"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have read permission for all components\n"
+			}
+			"Write"
+			{
+				name = "Write"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have write permission for all components\n"
+			}
+			"Administrator"
+			{
+				name = "Administrator"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have all the permissions.\n"
+			}
+			"Customer"
+			{
+				name = "Customer"
+				type = Customer_Portal
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This is the default profile having only add and view permission.\n"
+			}
+			roles
+			{
+				"CEO"
+				{
+					description = "User belonging to this role can access data of all other users."
+				}
+			}
+			role Hierarchy = {Allotment_Form,Candidate_Details,Room_Form}
+	}
+
+	customize
+	{
+		
+		layout = "tab"
+		color = "black"
+		base theme = "professional"
+		new theme = 1
+		
+		icons = true
+		icons style = outline
+	}
+
+
+	
+}
